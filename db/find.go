@@ -23,6 +23,7 @@ func Find(collection string, documents any) error {
 	return cursor.All(context.Background(), documents)
 }
 
+//FindOne retrieves a document from the specified collection by its ID.
 func FindOne(collection string, id string, document any) error {
 	client, ctx := getConnection()
 	defer client.Disconnect(ctx)
