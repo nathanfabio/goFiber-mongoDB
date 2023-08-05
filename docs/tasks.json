@@ -1,0 +1,8 @@
+{
+    "_id": "ObjectID",
+    "title": "string",
+    "description": "string",
+    "tags": "[]string",
+    "assing": "ObjectID",
+    "done": "bool"
+}
