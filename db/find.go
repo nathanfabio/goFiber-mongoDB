@@ -39,3 +39,13 @@ func FindOne(collection string, id string, document any) error {
 
 	return c.FindOne(context.Background(), filter).Decode(document)
 }
+
+//FindOnlyOne finds a single document in a collection based on the given filter and decodes it into the provided document object.
+func FindOnlyOne(collection string, filter bson.M, document any) error {
+	client, ctx := getConnection()
+	defer client.Disconnect(ctx)
+
+	c := client.Database(dbName).Collection(collection)
+
+	return c.FindOne(context.Background(), filter).Decode(document)
+}
