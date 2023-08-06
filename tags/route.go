@@ -6,4 +6,9 @@ func RoutesTags(r fiber.Router) {
 	tags := r.Group("/tags")
 
 	tags.Post("/", addTag)
+
+	tags.Get("/", getAll)
+	tags.Get("/:id", getOne)
+
+	tags.Put("/:id", updateTags)
 }
