@@ -11,4 +11,6 @@ func RoutesTags(r fiber.Router) {
 	tags.Get("/:id", getOne)
 
 	tags.Put("/:id", updateTags)
+
+	tags.Delete("/:id", deleteTags)
 }
