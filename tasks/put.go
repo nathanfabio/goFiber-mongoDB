@@ -8,7 +8,7 @@ import (
 	"github.com/nathanfabio/goFiber-mongoDB/db"
 )
 
-func updateTags(c *fiber.Ctx) error {
+func updateTasks(c *fiber.Ctx) error {
 	body := new(Tasks)
 
 	if err := c.BodyParser(body); err != nil {
