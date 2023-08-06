@@ -6,4 +6,9 @@ func RoutesTasks(r fiber.Router) {
 	tasks := r.Group("/tasks")
 
 	tasks.Post("/", addTask)
+
+	tasks.Get("/", getAll)
+	tasks.Get("/:id", getOne)
+
+	
 }
