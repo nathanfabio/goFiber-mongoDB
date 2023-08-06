@@ -10,5 +10,5 @@ func RoutesTasks(r fiber.Router) {
 	tasks.Get("/", getAll)
 	tasks.Get("/:id", getOne)
 
-	
+	tasks.Put("/:id", updateTags)
 }
