@@ -9,7 +9,7 @@ func getAll(c *fiber.Ctx) error {
 
 	var documents []Tags
 
-	err := db.Find("tags", &documents)
+	err := db.Find("tags", nil, &documents)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(err.Error())
 	}

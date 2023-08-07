@@ -8,13 +8,17 @@ import (
 )
 
 //Find retrieves all documents from the specified collection in the database.
-func Find(collection string, documents any) error {
+func Find(collection string, filter bson.M, documents any) error {
 	client, ctx := getConnection()
 	defer client.Disconnect(ctx)
 
 	c := client.Database(dbName).Collection(collection)
 
-	cursor, err := c.Find(context.Background(), bson.D{})
+	if filter == nil {
+		filter = bson.M{}
+	}
+
+	cursor, err := c.Find(context.Background(), filter)
 	if err != nil {
 		return err
 	}

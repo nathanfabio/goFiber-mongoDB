@@ -8,7 +8,7 @@ import (
 func getAll(c *fiber.Ctx) error {
 	var documents []User
 
-	err := db.Find("users", &documents)
+	err := db.Find("users", nil, &documents)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(err.Error())
 	}
