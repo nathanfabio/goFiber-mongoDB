@@ -49,9 +49,39 @@ func AddTask(taskID string, names []string) error {
 
 		sort.Strings(tag.Tasks)
 
-		result := new(Tag)
+		result := new(Tags)
 
 		err = db.UpdateOne("tags", tag.ID.Hex(), tag, result)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func RemoveTask(taskID string, names ...string) error {
+	filter := bson.M{"tasks": taskID}
+
+	if len(names) > 0 {
+		filter["name"] = bson.M{"$in": names}
+	}
+
+	var documents []Tags
+
+	err := db.Find("tags", filter, &documents)
+	if err != nil {
+		return err
+	}
+
+	var result Tags
+
+	for _, document := range documents {
+		i := sort.SearchStrings(document.Tasks, taskID)
+
+		document.Tasks = append(document.Tasks[:i], document.Tasks[i+1:]...)
+
+		err := db.UpdateOne("tags", document.ID.Hex(), document, &result)
 		if err != nil {
 			return err
 		}
