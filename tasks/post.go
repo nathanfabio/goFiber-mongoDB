@@ -5,6 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/nathanfabio/goFiber-mongoDB/db"
+	"github.com/nathanfabio/goFiber-mongoDB/tags"
 )
 
 func addTask(c *fiber.Ctx) error {
@@ -20,6 +21,12 @@ func addTask(c *fiber.Ctx) error {
 	}
 
 	body.ID = id
+
+	err = tags.AddTask(body.ID.Hex(), body.Tags)
+	if err != nil {
+		db.DeleteOne("tasks", body.ID.Hex())
+		return c.Status(http.StatusInternalServerError).JSON(err.Error())
+	}
 
 	return c.Status(http.StatusCreated).JSON(body)
 }
